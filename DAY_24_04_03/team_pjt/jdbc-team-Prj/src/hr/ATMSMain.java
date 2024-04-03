@@ -14,6 +14,7 @@ public class ATMSMain {
 	// ATtendace Manage System
 	public static void main(String[] args) {
 		IStuDao stuDao = new StuDao();
+		ILogDao logDao = new LogDao();
 		
 //		insert 학생 추가
 //		StuVo stu = new StuVo(20247, "홍길동", null, 0, "010-0000-0000");
@@ -29,6 +30,14 @@ public class ATMSMain {
 //		changeStudentPhoneNumber(20241, "111-1111-1111");
 //		changeStudentGroup(20241, 5);
 //		changeStudentClassName(20241, "salt");
+		
+		
+//		insert 학생 입실
+//		LogVo log = new LogVo(1, null, null, 20241);
+//		enterStudent(log);
+		
+//		update 학생 퇴실
+//		exitStudent(1, 20241);
 		
 	}
 	
@@ -114,5 +123,21 @@ public class ATMSMain {
 		
 		System.out.print("수정된 ");
 		searchStudent(stuId);
+	}
+	
+	private static void enterStudent(LogVo log) {
+		// insert 학생 입실
+		ILogDao logDao = new LogDao();
+		logDao.insertEnterLog(log);
+		System.out.println("학생이 입실 했습니다.");
+	}
+	private static void exitStudent(int logId, int stuId) {
+		// update 학생 입실
+		ILogDao logDao = new LogDao();
+		LogVo updateLog = new LogVo();
+		updateLog.setLogId(logId);
+		updateLog.setStuId(stuId);
+		logDao.updateExitLog(updateLog);
+		System.out.println("학생이 퇴실 했습니다.");
 	}
 }
