@@ -3,6 +3,8 @@ package hr.emp;
 import java.util.List;
 
 public interface IStuDao {
+	// 학생 인터페이스
+	
 	// 학생 추가
 	void insertStu(StuVo stu);
 	

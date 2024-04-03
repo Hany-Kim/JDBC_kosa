@@ -8,6 +8,7 @@ import hr.emp.LogVo;
 
 import java.util.List;
 
+import hr.emp.CheckLogVo;
 import hr.emp.ILogDao;
 
 public class ATMSMain {
@@ -27,17 +28,21 @@ public class ATMSMain {
 //		searchAllStudent();
 		
 //		update 특정 학생 정보 수정
-//		changeStudentPhoneNumber(20241, "111-1111-1111");
-//		changeStudentGroup(20241, 5);
-//		changeStudentClassName(20241, "salt");
+//		changeStudentClassName(20241, "lux");
+//		changeStudentGroup(20241, 55);		
+//		changeStudentPhoneNumber(20241, "010-2222-2222");
 		
 		
 //		insert 학생 입실
-//		LogVo log = new LogVo(1, null, null, 20241);
+//		LogVo log = new LogVo(2, null, null, 20242);
 //		enterStudent(log);
 		
 //		update 학생 퇴실
-//		exitStudent(1, 20241);
+//		exitStudent(2, 20242);
+		
+//		select 일 단위 학생 조회
+		searchDayLog(20241, "03");
+//		searchMonthLog(20241, "04");
 		
 	}
 	
@@ -139,5 +144,39 @@ public class ATMSMain {
 		updateLog.setStuId(stuId);
 		logDao.updateExitLog(updateLog);
 		System.out.println("학생이 퇴실 했습니다.");
+	}
+	
+	private static void searchDayLog(int stuId, String day) {
+		System.out.println(day + "일 출결 정보를 조회합니다.");
+		ILogDao logDao = new LogDao();
+		try {
+			List<CheckLogVo> clList = logDao.selectDayLog(stuId, day);
+			for(CheckLogVo cl : clList) {
+				printLog(cl);
+			}
+		}catch(RuntimeException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	private static void searchMonthLog(int stuId, String month) {
+		System.out.println(month + "월 출결 정보를 조회합니다.");
+		ILogDao logDao = new LogDao();
+		try {
+			List<CheckLogVo> clList = logDao.selectMonthLog(stuId, month);
+			for(CheckLogVo cl : clList) {
+				printLog(cl);
+			}
+		}catch(RuntimeException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	private static void printLog(CheckLogVo cl) {
+		System.out.print("[학번 : " + cl.getStuId() + " | ");
+		System.out.print("이름 : " + cl.getStuName() + " | ");
+		System.out.print("반 : " + cl.getStuClass() + " | ");
+		System.out.print("입실 시간 : " + cl.getEnterDate() + " | ");
+		System.out.println("퇴실 시간 : " + cl.getExitDate() + " ]");
 	}
 }

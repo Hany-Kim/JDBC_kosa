@@ -1,6 +1,9 @@
 package hr.emp;
 
+import java.util.List;
+
 public interface ILogDao {
+	// 입퇴실 로그 인터페이스
 	// 입실
 	void insertEnterLog(LogVo log);
 	
@@ -9,9 +12,9 @@ public interface ILogDao {
 	
 	// 조회
 		// 일
-	void selectDayLog(int logId);
+	List<CheckLogVo> selectDayLog(int stuId, String day);
 		// 월
-	void selectMonthLog(int logId);
+	List<CheckLogVo> selectMonthLog(int stuId, String month);
 		// 사람
-	void selectStuLog(int logId, int stuId);
+	List<CheckLogVo> selectStuLog(int logId, int stuId);
 }
